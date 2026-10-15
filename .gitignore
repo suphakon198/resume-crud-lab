@@ -1,4 +1,4 @@
 *.log
 .DS_Store
 .env
-secret/
+secret/desktop.ini
