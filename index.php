@@ -1,9 +1,12 @@
 <?php
+require_once 'auth.php';
+require_login();
 require_once 'config/db.php';
+$ownProfileId=(int)$_SESSION['profile_id'];
 
 // Student profile (starter table)
 $profile = null;
-$sql = "SELECT * FROM profile LIMIT 1";
+$sql = "SELECT * FROM profile WHERE id = $ownProfileId LIMIT 1";
 $result = mysqli_query($conn, $sql);
 if ($result && mysqli_num_rows($result) > 0) {
     $profile = mysqli_fetch_assoc($result);
@@ -11,7 +14,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 
 // Education (starter table)
 $educations = [];
-$sql = "SELECT * FROM education ORDER BY start_year DESC";
+$sql = "SELECT * FROM education WHERE profile_id = $ownProfileId ORDER BY start_year DESC";
 $result = mysqli_query($conn, $sql);
 if ($result) {
     while ($row = mysqli_fetch_assoc($result)) {

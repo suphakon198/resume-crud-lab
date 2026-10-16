@@ -3,7 +3,7 @@ require 'crud_bootstrap.php';
 $id=valid_id($_GET['id']??$_POST['id']??null);$pid=profile_id($conn);$error='';$row=null;
 if(!$id){http_response_code(400);exit('Invalid record ID');}
 // TODO 2a: Fill SELECT SQL for exactly one record belonging to the profile.
-$sql='SELECT skill_name, skill_level FROM skill WHERE id = ? AND profile_id = ? LIMIT 1';
+$sql='SELECT skill_name, skill_level FROM skill WHERE id = ? AND profile_id = ?';
 $stmt=mysqli_prepare($conn,$sql);
 if($stmt){mysqli_stmt_bind_param($stmt,'ii',$id,$pid);mysqli_stmt_execute($stmt);mysqli_stmt_bind_result($stmt,$oldName,$oldLevel);if(mysqli_stmt_fetch($stmt))$row=['skill_name'=>$oldName,'skill_level'=>$oldLevel];mysqli_stmt_close($stmt);}
 if(!$row){http_response_code(404);exit('Record not found or TODO 2a unfinished.');}
